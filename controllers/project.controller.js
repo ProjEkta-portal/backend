@@ -1,4 +1,5 @@
 const Project = require("../models/project.model")
+const College = require("../models/college.model")
 
 const getProjects = async (req, res, next) => {
   let projects;
@@ -18,7 +19,16 @@ const getProjects = async (req, res, next) => {
     return next(error)
   }
 
-  res.json(projects.map(project => project.toObject({ getters: true })));
+  let projectsArr = projects.map(project => project.toObject({ getters: true }))
+
+  let _projectsArr = await Promise.all(projectsArr.map(async project => {
+    let college = await College.findOne({ collegeId: project.collegeId })
+    let collegeName = college.toObject().name
+    project.collegeName = collegeName
+    return project
+  }))
+
+  res.json(_projectsArr);
 }
 
 const createProject = async (req, res, next) => {

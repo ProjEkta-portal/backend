@@ -7,6 +7,7 @@ const getColleges = async (req, res, next) => {
     colleges = await College.find();
   }
   catch (err) {
+    console.log(err)
     const error = new Error('Something went wrong in the server');
     res.status(500);
     return next(error);
