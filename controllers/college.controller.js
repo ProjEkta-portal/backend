@@ -36,7 +36,7 @@ const getCollegeById = async (req, res, next) => {
 
   if (!college) {
     const error = new Error('Could not find the college')
-    res.status(500);
+    res.status(404);
     return next(error);
   }
 

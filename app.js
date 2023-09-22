@@ -7,6 +7,8 @@ const mongoose = require("mongoose")
 const cors = require("cors");
 
 const collegeRoutes = require("./routes/college.route");
+const projectRoutes = require("./routes/project.route");
+const userRoutes = require("./routes/user.route")
 
 const app = express();
 app.use(cors())
@@ -26,6 +28,8 @@ app.use((req, res, next) => {
 })
 
 app.use('/api/colleges', collegeRoutes);
+app.use('/api/projects', projectRoutes);
+app.use('/api/users', userRoutes);
 
 app.use((req, res, next) => {
   const err = new Error("Could not find this route");
